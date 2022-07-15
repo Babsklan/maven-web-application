@@ -1,0 +1,39 @@
+node
+{
+    
+    def mavenHome = tool name: "maven3.8.6"
+    properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')), [$class: 'JobLocalConfiguration', changeReasonComment: ''], pipelineTriggers([pollSCM('* * * * *')])])
+ 
+ echo "The job name is: ${env.JOB_NAME}" 
+ echo "The node name is: ${env.NODE_NAME}" 
+ echo "The workspace name is: ${env.WORKSPACE}" 
+ echo "The node label is: ${env.NODE_LABELS}"
+ echo "The ebuild number is: ${env.BUILD_NUMBER}"
+    
+stage('CheckoutCode'){
+git branch: 'development', credentialsId: 'b794f090-8c41-43b1-9f7d-d9ce9a4bf77b', url:'https://github.com/Babsklan/maven-web-application.git'
+}
+
+stage('Build'){
+sh "${mavenHome}/bin/mvn clean package"   
+}
+
+ /*
+stage('ExecuteSonarQubeReport'){
+sh "${mavenHome}/bin/mvn sonar:sonar"
+}
+    
+stage('UploadArtifcatsIntoNexus') 
+{
+sh "${mavenHome}/bin/mvn deploy"
+}
+
+stage('DeployAppIntoTomcatServer'){
+sshagent(['6df1f396-e13c-4889-b3dc-a0f62d3f26d1']) {
+    sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@44.203.176.56:/opt/apache-tomcat-9.0.64/webapps/"
+}
+}
+    
+ */   
+    
+}
