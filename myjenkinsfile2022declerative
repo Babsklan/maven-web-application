@@ -30,7 +30,7 @@ stages{
    stage('CheckoutCode'){
    steps{
        slacknotifications("STARTED")
-   git branch: "$"{params.BranchName}, credentialsId: 'b794f090-8c41-43b1-9f7d-d9ce9a4bf77b', url:'https://github.com/Babsklan/maven-web-application.git'
+   git branch: "${params.BranchName}", credentialsId: 'b794f090-8c41-43b1-9f7d-d9ce9a4bf77b', url:'https://github.com/Babsklan/maven-web-application.git'
    }
    }
  
