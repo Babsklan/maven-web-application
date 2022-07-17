@@ -11,6 +11,7 @@ node
  echo "The ebuild number is: ${env.BUILD_NUMBER}"
  
  try{
+ slacknotifications("STARTED")
  
 stage('CheckoutCode'){
 git branch: 'development', credentialsId: 'b794f090-8c41-43b1-9f7d-d9ce9a4bf77b', url:'https://github.com/Babsklan/maven-web-application.git'
